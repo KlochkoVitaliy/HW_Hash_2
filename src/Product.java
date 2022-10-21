@@ -1,11 +1,9 @@
 import java.util.*;
 
 public class Product {
-    private static int count;
     private String name;
     private double price;
     private int quantity;
-    private final Set products;
 
     public Product(String name, double price, int quantity) {
         if (name != null && !name.isEmpty() && !name.isBlank()) {
@@ -23,8 +21,6 @@ public class Product {
         } else {
             this.quantity = quantity;
         }
-        products = new HashSet();
-        count++;
     }
 
     public String getName() {
@@ -39,9 +35,6 @@ public class Product {
         return quantity;
     }
 
-    public Set getProducts() {
-        return products;
-    }
 
     @Override
     public boolean equals(Object o) {
