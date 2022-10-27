@@ -5,19 +5,30 @@ import java.util.Set;
 public class Recipes {
 
     private String nameOfTheRecipe;
-    private final double sumCastProducts;
+    private double sumCastProducts;
 
-    private Set<Product> recipes;
+    private Set<Product> products;
 
-    public Recipes(String nameOfTheRecipe, double sumCastProducts) {
+    public Recipes(String nameOfTheRecipe, Set<Product> products) {
 
         if (nameOfTheRecipe != null && !nameOfTheRecipe.isEmpty() && !nameOfTheRecipe.isBlank()) {
             this.nameOfTheRecipe = nameOfTheRecipe;
-        } else {
-            throw new IllegalArgumentException("Такое название рецепта уже существует! ");
         }
-        this.sumCastProducts = sumCastProducts;
-        this.recipes = new HashSet();
+        if (products!=null && !products.isEmpty()) {
+            this.products = products;
+        }else{
+            throw new RuntimeException();
+        }
+        this.sumCastProducts = setSum(products);
+
+    }
+
+    private double setSum(Set<Product> products) {
+        double sum = 0;
+        for (Product product : products) {
+            sum += product.getPrice() * product.getQuantity();
+        }
+        return sum;
     }
 
     public double getSumCastProducts() {
@@ -28,30 +39,26 @@ public class Recipes {
         return nameOfTheRecipe;
     }
 
-    public Set getRecipes() {
-        return recipes;
+    public Set getProducts() {
+        return products;
     }
 
     public static void recipe() {
         Set recipe = new HashSet();
     }
 
-//    public  sumProduct(Product product){
-//        Set <Product> sum = HashSet<>();
-//
-//    }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Recipes recipes1 = (Recipes) o;
-        return Double.compare(recipes1.sumCastProducts, sumCastProducts) == 0 && Objects.equals(nameOfTheRecipe, recipes1.nameOfTheRecipe) && Objects.equals(recipes, recipes1.recipes);
+        return Objects.equals(nameOfTheRecipe, recipes1.nameOfTheRecipe);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(nameOfTheRecipe, sumCastProducts, recipes);
+        return Objects.hash(nameOfTheRecipe, sumCastProducts, products);
     }
 
     @Override
