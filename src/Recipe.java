@@ -1,35 +1,44 @@
-import java.util.HashSet;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
-public class Recipes {
+public class Recipe {
 
     private String nameOfTheRecipe;
     private double sumCastProducts;
 
-    private Set<Product> products;
+    private final Map<Product, Integer> products = new HashMap<>();
+//    private Set<Product> products;
 
-    public Recipes(String nameOfTheRecipe, Set<Product> products) {
+    public Recipe(String nameOfTheRecipe) {
 
         if (nameOfTheRecipe != null && !nameOfTheRecipe.isEmpty() && !nameOfTheRecipe.isBlank()) {
             this.nameOfTheRecipe = nameOfTheRecipe;
         }
-        if (products!=null && !products.isEmpty()) {
-            this.products = products;
-        }else{
-            throw new RuntimeException();
-        }
-        this.sumCastProducts = setSum(products);
-
+        this.sumCastProducts = 0;
+        RecipesBook.recipeBook.add(this);
     }
 
-    private double setSum(Set<Product> products) {
-        double sum = 0;
-        for (Product product : products) {
-            sum += product.getPrice() * product.getQuantity();
+    public void addProductInRecipe(Product product, int quantity){
+        if(products.containsKey(product)){
+            throw new RuntimeException("Ошибка!!! ");
+        }
+        products.put(product, quantity);
+//        sumCastProducts = sumCastProducts + product.getPrice()*requiredQuantity;
+    }
+
+    public int getCostForProduct(){
+        int sum = 0;
+        for (Product key: products.keySet()){
+            sum+=products.get(key) * key.getPrice();
         }
         return sum;
     }
+//    private double setSum(Set<Product> products) {
+//        double sum = 0;
+//        for (Product product : products) {
+//            sum += product.getPrice() * product.getQuantity();
+//        }
+//        return sum;
+//    }
 
     public double getSumCastProducts() {
         return sumCastProducts;
@@ -39,7 +48,7 @@ public class Recipes {
         return nameOfTheRecipe;
     }
 
-    public Set getProducts() {
+    public Map getProducts() {
         return products;
     }
 
@@ -52,7 +61,7 @@ public class Recipes {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Recipes recipes1 = (Recipes) o;
+        Recipe recipes1 = (Recipe) o;
         return Objects.equals(nameOfTheRecipe, recipes1.nameOfTheRecipe);
     }
 
