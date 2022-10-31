@@ -6,20 +6,13 @@ public class Product {
     private int quantity;
 
     public Product(String name, double price, int quantity) {
-        if (name != null && !name.isEmpty() && !name.isBlank()) {
+        this.quantity = quantity;
+        if (name != null && !name.isEmpty() && !name.isBlank() && price > 0) {
             this.name = name;
-        } else {
-            throw new IllegalArgumentException("Заполните карточку товара полностью!!");
-        }
-        if (price == 0) {
-            throw new IllegalArgumentException("Заполните карточку товара полностью!!");
-        } else {
             this.price = price;
-        }
-        if (quantity == 0) {
-            throw new IllegalArgumentException("Заполните карточку товара полностью!!");
+     //       addProductToList(this);
         } else {
-            this.quantity = quantity;
+            throw new IllegalArgumentException("Заполните карточку товара" + name + "полностью!!");
         }
     }
 

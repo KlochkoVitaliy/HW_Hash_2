@@ -28,14 +28,13 @@ public class Main {
             System.out.println(prod);
         }
 
-        Recipes obed = new Recipes("Обед дня", menu);
-        Recipes tea = new Recipes("Чай, Индийский чай", menu1);
+        Recipe obed = new Recipe("Обед дня");
+        Recipe tea = new Recipe("Чай, Индийский чай");
 
         RecipesBook bookCook = new RecipesBook();
-        bookCook.addProduct(obed);
-        bookCook.addProduct(tea);
+        bookCook.addRecipe(obed);
+        bookCook.addRecipe(tea);
 
-        //    bookCook.addProduct(obed);
 
 
     }
